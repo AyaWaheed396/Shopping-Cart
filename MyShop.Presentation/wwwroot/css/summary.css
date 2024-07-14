@@ -1,0 +1,31 @@
+﻿
+
+
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+    .card img {
+        border-radius: 0.5rem;
+    }
+
+.form-control {
+    border-radius: 0.25rem;
+}
+
+.checkout-container {
+    margin-top: 20px;
+}
+
+.cart-summary {
+    border-left: 1px solid #e9ecef;
+}
+
+.btn-outline-dark {
+    border-radius: 0.25rem;
+}

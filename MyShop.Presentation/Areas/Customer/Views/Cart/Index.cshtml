@@ -1,0 +1,106 @@
+﻿
+@model ShoppingCartVM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="~/css/cartindexview.css" rel="stylesheet" />
+
+</head>
+<body>
+    <form method="post">
+        <br />
+        <div class="container">
+            <div class="card"></div>
+            <div class="card-header text-light ml-0">
+                <div class="row">
+                    <div class="col-6 pt-2">
+                        <i class="fas fa-shopping-cart"></i>&nbsp;
+                        Shopping Cart
+                    </div>
+                    <div class="col-6 text-end">
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-light">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                @if (Model.CartsList.Count() < 1)
+                {
+                    <h4>There Are No Items In Your Cart</h4>
+                }
+                else
+                {
+                    @foreach (var item in Model.CartsList)
+                    {
+                        <div class="row mb-3">
+                            <div class="col-lg-2 col-md-3 col-sm-4 col-4">
+                                <img src="~/@item.Product.Img" class="img-fluid" />
+                            </div>
+                            <div class="col-lg-6 col-md-5 col-sm-4 col-8">
+                                <h5><strong>@item.Product.Name</strong></h5>
+                                <p><small>@item.Product.Description</small></p>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-12 text-right">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6>
+                                            <strong>
+                                                @item.Product.Price.ToString("c")
+                                                <span class="text-muted"> x </span>@item.Count
+                                            </strong>
+                                        </h6>
+                                    </div>
+                                    <div>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Plus" asp-route-cartId="@item.Id" class="btn btn-dark">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                            <a asp-action="Minus" asp-route-cartId="@item.Id" class="btn btn-dark">
+                                                <i class="fas fa-minus"></i>
+                                            </a>
+                                        </div>
+                                        <a asp-action="remove" asp-route-cartId="@item.Id" class="btn btn-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+                    <div class="row">
+                        <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span class="text-dark">Total(USD)</span>
+                                    <strong class="text-dark">$@Model.TotalCarts.ToString()</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (Model.CartsList.Count() !=0 )
+            {
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6">
+                            <a asp-action="Summary" class="btn btn-primary form-control">Summary</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
